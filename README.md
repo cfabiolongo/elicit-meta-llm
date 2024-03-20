@@ -6,7 +6,7 @@ This is the repository of the Python (3.10+) implementation for the Exclusive-Au
 
 # Installation
 
-### Pandas (for clauses exporting from mongodb to excel)
+### Pandas 
 
 ```sh
 > pip install pandas
