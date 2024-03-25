@@ -19,7 +19,7 @@ Follow the instructions reported [here](https://pytorch.org/) for the current sy
 
 ### Llama 2 
 
-* Download Llama-2-7b-chat-hf (or 70b) from [huggingface](Llama-2-7b-chat-hf) and copy it in a local folder. 
+* Download **Llama-2-7b-chat-hf** (or 70b) from [huggingface](Llama-2-7b-chat-hf) and copy it in a local folder. 
 
 ### QLoRA
 
@@ -48,6 +48,16 @@ This repository contains source code splitted in the following steps:
 * *stage-one* EXAR fine-tuning: llama_2_ft_dollycontext4_lora.py
 * *stage-one* EXAR evaluation: llama_2_ft_bertscore_dolly.py
 * merged *stage-one* meta-validator/EXAR evaluation: llama_2_ft_bertcontext_dolly_pipe.py
+
+## *stage-zero* fine-tuning
+
+This code was designed to build a new fine-tuned QLoRa instance of **Llama-2-7b-chat-hf** for the task of 
+Question-Answering on [databricks/dolly-v2-12b](https://huggingface.co/databricks/dolly-v2-12b) dataset.
+
+* filename: llama_2_ft_dolly_lora.py
+
+
+
 
 
 
