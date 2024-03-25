@@ -55,6 +55,13 @@ Question-Answering on [databricks/dolly-v2-12b](https://huggingface.co/databrick
 
 * filename: [llama_2_ft_dolly_lora.py](https://github.com/cfabiolongo/elicit-meta-llm/blob/master/llama_2_ft_dolly_lora.py)
 
+Relevant parameters:
+ 
+* Training epochs
+* Learning rate
+* Path fine-tuned model 
+
+
 ## *stage-zero* evaluation
 
 This code was designed to evaluate #match (morphological) and [BERTScore](https://huggingface.co/spaces/evaluate-metric/bertscore) for a test set o 100 (or more) items from dolly.
@@ -62,16 +69,37 @@ The code can optionally save all predictions in a **pre-DATASET+**.
 
 * filename: [llama_2_ft_bertscore_dolly.py](https://github.com/cfabiolongo/elicit-meta-llm/blob/master/llama_2_ft_bertscore_dolly.py)
 
+Relevant parameters:
+ 
+* Input path fine-tuned model
+* Output path for **pre-DATASET+** (optional)
+
+
 ## *stage-zero* DATASET+ annotations
 
 This code is for annotating **pre-DATASET+** with evaluations leveraging BERT-score, in order to build **DATASET+**.
 
 * filename: [check_dollypreds.py](https://github.com/cfabiolongo/elicit-meta-llm/blob/master/check_dollypreds.py)
 
+Relevant parameters:
+ 
+* Validation F1-score treshold.
+* Other thresholds
+* Output Path fine-tuned model 
+
 ## *stage-one* meta-validator fine-tuning
 
 The following code is for building a new fine-tuned [QLoRa](https://arxiv.org/abs/2305.14314) instance of **Llama-2-7b-chat-hf** for the task of
 validation on the predictions of *stage-zero* (**DATASET+**).
+
+* filename: [llama_2_ft_metadolly_lora.py](https://github.com/cfabiolongo/elicit-meta-llm/blob/master/llama_2_ft_metadolly_lora.py)
+
+Relevant parameters:
+ 
+* Input excel **DATASET+**
+* Training epochs
+* Learning rate
+* Path fine-tuned model 
 
 ## *stage-one* meta-validator evaluation
 
@@ -85,6 +113,13 @@ The following code is aimed to fine-tune an instance **Llama-2-7b-chat-hf** for 
 Question-Answering on **DATASET+**, by leveraging the exclusive-autoregressive (EXAR) prompt.
 
 * filename: [llama_2_ft_dollycontext4_lora.py](https://github.com/cfabiolongo/elicit-meta-llm/blob/master/llama_2_ft_dollycontext4_lora.py)
+
+Relevant parameters:
+
+* Input excel **DATASET+**
+* Training epochs
+* Learning rate
+* Path fine-tuned model 
 
 An example item from such fine-tuning is depicted in the following picture:
 
