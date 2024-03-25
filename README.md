@@ -39,8 +39,16 @@ Follow the instructions reported [here](https://pytorch.org/) for the current sy
 
 This repository contains source code splitted in the following steps:
 
-* *stage-zero* model fine-tuning
-* *stage-zero* model evaluation
+* *stage-zero* fine-tuning: 
+* *stage-zero* evaluation
+* *stage-one* DATASET+ building
+* *stage-one* DATASET+ annotation
+* *stage-one* meta-validator
+* *stage-one* meta-validator evaluation
+* *stage-one* EXAR fine-tuning
+* *stage-one* EXAR evaluation 
+* merged *stage-one* meta-validator evaluation
+* merged *stage-one* EXAR evaluation 
 
 
 
