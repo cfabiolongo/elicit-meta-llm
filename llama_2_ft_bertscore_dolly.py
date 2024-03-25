@@ -1,7 +1,3 @@
-import os
-os.environ["CUDA_VISIBLE_DEVICES"] = "0"  # or "0,1" for multiple GPUs
-
-
 import pandas as pd
 import torch
 from peft import AutoPeftModelForCausalLM

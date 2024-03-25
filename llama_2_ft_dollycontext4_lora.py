@@ -1,7 +1,3 @@
-import os
-os.environ["CUDA_VISIBLE_DEVICES"] = "0"  # or "0,1" for multiple GPUs
-
-from random import randrange
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig, TrainingArguments
 from datasets import load_dataset, Dataset

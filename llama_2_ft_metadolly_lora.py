@@ -2,7 +2,6 @@ import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig, TrainingArguments
 import pandas as pd
 
-
 # General parameters
 epoche = 100
 lr = 2e-3

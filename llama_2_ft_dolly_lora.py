@@ -4,7 +4,6 @@ from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
 from datasets import load_dataset
 from random import randrange
 
-
 # General parameters
 epoche = 100
 lr = 2e-3
