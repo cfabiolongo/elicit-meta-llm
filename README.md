@@ -43,7 +43,7 @@ This repository contains source code splitted in the following steps:
 * *stage-zero* evaluation
 * *stage-one* DATASET+ building
 * *stage-one* DATASET+ annotation
-* *stage-one* meta-validator
+* *stage-one* meta-validator fine-tuning
 * *stage-one* meta-validator evaluation
 * *stage-one* EXAR fine-tuning
 * *stage-one* EXAR evaluation 
