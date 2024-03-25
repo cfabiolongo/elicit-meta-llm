@@ -39,16 +39,15 @@ Follow the instructions reported [here](https://pytorch.org/) for the current sy
 
 This repository contains source code splitted in the following steps:
 
-* *stage-zero* fine-tuning: 
-* *stage-zero* evaluation
-* *stage-one* DATASET+ building
-* *stage-one* DATASET+ annotation
-* *stage-one* meta-validator fine-tuning
-* *stage-one* meta-validator evaluation
-* *stage-one* EXAR fine-tuning
-* *stage-one* EXAR evaluation 
-* merged *stage-one* meta-validator evaluation
-* merged *stage-one* EXAR evaluation 
+* *stage-zero* fine-tuning: llama_2_ft_dolly_lora.py
+* *stage-zero* evaluation: llama_2_ft_bertscore_dolly.py
+* *stage-one* DATASET+ building: ???
+* *stage-one* DATASET+ annotation: ???
+* *stage-one* meta-validator fine-tuning: llama_2_ft_metadolly_lora.py
+* *stage-one* meta-validator evaluation: llama_2_ft_eval_metadolly.py
+* *stage-one* EXAR fine-tuning: llama_2_ft_dollycontext4_lora.py
+* *stage-one* EXAR evaluation: llama_2_ft_bertscore_dolly.py
+* merged *stage-one* meta-validator/EXAR evaluation: llama_2_ft_bertcontext_dolly_pipe.py
 
 
 
