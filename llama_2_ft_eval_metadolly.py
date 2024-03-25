@@ -12,7 +12,7 @@ if use_flash_attention:
 
 
 # General parameters
-model_name = "llama-metadolly_qa_super100_100ep"
+model_name = "llama-metadolly2_qa_super100_100ep"
 output_dir = f"../models/finetuned/{model_name}"
 temp = 0.1
 max_new_tokens = 512
@@ -32,7 +32,7 @@ tokenizer = AutoTokenizer.from_pretrained(output_dir)
 
 df = pd.read_excel('dataset/dolly_openqa_validations_super100.xlsx')
 
-df = df.iloc[100:200].reset_index(drop=True)  
+df = df.iloc[:100].reset_index(drop=True)  
 
 question_column = df['Question'].tolist()
 generated_column = df['Generated_Response'].tolist()
@@ -92,7 +92,7 @@ for i in range(len(dataset)):
 
     preds.append(gen)
     
-    if "CORRECT" in gen or "Correct" in gen:                
+    if "CORRECT" in gen or "Correct" in gen or "correct" in gen:                
             if str(d['validation']) == "CORRECT":            
                 true_positive = true_positive + 1           
             else:

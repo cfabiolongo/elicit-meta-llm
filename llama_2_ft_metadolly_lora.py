@@ -1,30 +1,64 @@
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig, TrainingArguments
 import pandas as pd
+from datasets import load_dataset, concatenate_datasets, Dataset
+from random import randrange
+
 
 # General parameters
 epoche = 100
 lr = 2e-3
-path_model = f"../models/finetuned/llama-metadolly_qa_super100_{epoche}ep"
+path_model = f"../models/finetuned/llama-metadolly2_qa_super100_{epoche}ep"
 
-df = pd.read_excel('dataset/dolly_openqa_validations_super100.xlsx')
+####################################### from dataset
 
-question_column = df['Question'].tolist()
-generated_column = df['Generated_Response'].tolist()
-validation_column = df['validation'].tolist()
+# Load dataset from the hub
+dataset = load_dataset("databricks/databricks-dolly-15k", split="train")
 
-# Create datasets
-dataset = [{'validation': val, 'question': q, 'generated': g} for val, q, g in zip(validation_column, question_column, generated_column)]
+# Filtra il dataset
+filtered_dataset = dataset.filter(lambda example: example['category'] == "open_qa" and len(example["response"]) <= 100 and example["context"] == "")
+
+# Reduce dataset to the first 1000 records
+dataset1 = filtered_dataset.select(range(1000))
+
+df1 = dataset1.to_pandas()
+df1 = df1[['instruction', 'response']]
+df1['validation'] = "CORRECT"
+
+####################################### from past inference
+
+df2 = pd.read_excel('dataset/dolly_openqa_validations_super100.xlsx')
+
+df2['response'] = df2['Generated_Response'].values
+df2 = df2.rename(columns={'Question': 'instruction'})
+df2 = df2[['instruction', 'response', 'validation']]
+
+
+# Concateniamo i due DataFrame
+df_conc = pd.concat([df1, df2])
+
+print("removing duplicate responses.....")
+print(f"dataset size (before): {len(df_conc)}")
+
+# Eliminiamo i duplicati basati su "question" e "response"
+df_conc = df_conc.drop_duplicates(subset=['instruction', 'response'], keep='first')
+
+dataset_conc = Dataset.from_pandas(df_conc)
+
+print(f"dataset size: {len(dataset_conc)}")
+print(dataset_conc[randrange(len(dataset_conc))])
+
+#######################################
 
 sub_prompt="Validate the response given in Input with CORRECT or WRONG, considering the question given in Context."
 
 def format_instruction(sample):
 	return f"""### Context:
-{sample['question']}
+{sample['instruction']}
 ### Instruction:
 {sub_prompt}
 ### Input:
-{sample['generated']}
+{sample['response']}
 
 ### Response:
 {sample['validation']}
@@ -93,7 +127,7 @@ max_seq_length = 2048 # max sequence length for model and packing of the dataset
 
 trainer = SFTTrainer(
     model=model,
-    train_dataset=dataset,
+    train_dataset=dataset_conc,
     peft_config=peft_config,
     max_seq_length=max_seq_length,
     tokenizer=tokenizer,
