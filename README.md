@@ -86,4 +86,6 @@ Question-Answering on **DATASET+**, by leveraging the exclusive-autoregressive (
 
 * filename: [llama_2_ft_dollycontext4_lora.py](https://github.com/cfabiolongo/elicit-meta-llm/blob/master/llama_2_ft_dollycontext4_lora.py)
 
+Such fine-tuning in depicted in the following picture:
+
 ![Image 1](https://github.com/cfabiolongo/elicit-meta-llm/blob/master/images/prompt-finetuning.jpg)
