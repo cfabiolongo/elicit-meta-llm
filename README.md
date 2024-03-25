@@ -53,23 +53,27 @@ This repository contains source code splitted in the following steps:
 This code was designed to build a new fine-tuned QLoRa instance of **Llama-2-7b-chat-hf** for the task of 
 Question-Answering on the [databricks/dolly-v2-12b](https://huggingface.co/databricks/dolly-v2-12b) dataset.
 
-* filename: llama_2_ft_dolly_lora.py
+* filename: [llama_2_ft_dolly_lora.py](https://github.com/cfabiolongo/elicit-meta-llm/blob/master/llama_2_ft_dolly_lora.py)
 
 ## *stage-zero* evaluation
 
 This code was designed to evaluate #match (morphological) and BERT-score for a test set o 100 (or more) items from dolly.
 The code can optionally save all predictions in a pre-DATASET+ dataset.
 
-* filename: llama_2_ft_bertscore_dolly.py
+* filename: [llama_2_ft_bertscore_dolly.py](https://github.com/cfabiolongo/elicit-meta-llm/blob/master/llama_2_ft_bertscore_dolly.py)
 
 ## *stage-zero* DATASET+ annotations
 
 This code was designed to annotate pre-DATASET+ with evaluations leveraging BERT-score, in order to build DATASET+.
 
-* filename: chech_dollypreds.py
+* filename: [check_dollypreds.py](https://github.com/cfabiolongo/elicit-meta-llm/blob/master/check_dollypreds.py)
 
+## *stage-one* meta-validator fine-tuning
 
+This code was designed to to build a new fine-tuned QLoRa instance of **Llama-2-7b-chat-hf** for the task of
+validation on the predictions of *stage-zero* (DATASET+).
 
+## *stage-one* meta-validator fine-tuning
 
 
 
