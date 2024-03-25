@@ -37,16 +37,8 @@ Follow the instructions reported [here](https://pytorch.org/) for the current sy
 
 # Code usage
 
-This repository contains source code splitted in the following steps:
+This repository contains source code to fine-tune and evaluate all models involved to test the performance of *EXAR* fine-tuning/prompting:
 
-* *stage-zero* fine-tuning
-* *stage-zero* evaluation/pre-DATASET+ building
-* *stage-one* DATASET+ annotation building from pre-DATASET+
-* *stage-one* meta-validator fine-tuning
-* *stage-one* meta-validator evaluation
-* *stage-one* EXAR fine-tuning
-* *stage-one* EXAR evaluation 
-* merged *stage-one* meta-validator/EXAR evaluation: llama_2_ft_bertcontext_dolly_pipe.py
 
 ## *stage-zero* fine-tuning
 
@@ -146,7 +138,7 @@ Relevant parameters:
 
 ## merged *stage-one* meta-validator/EXAR evaluation: 
 
-The following code is to evaluate overall performance of merged adapters meta-validator/EXAR.
+The following code is to evaluate the overall meta-cognitive performance of merged adapters meta-validator/EXAR in a single physical object.
 
 * filename: [llama_2_ft_bertcontext_dolly_pipe.py](https://github.com/cfabiolongo/elicit-meta-llm/blob/master/llama_2_ft_bertcontext_dolly_pipe.py)
 
