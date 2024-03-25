@@ -136,13 +136,13 @@ An example item from such fine-tuning is depicted in the following picture:
 ## *stage-one* EXAR evaluation
 
 The same code for above stage-zero evaluation can be used to evaluate EXAR evaluation for single adapter, on a test set o 100 (or more) items from dolly.
-The code can optionally save all predictions in a **pre-stagetwo-DATASET+**.
+The code can optionally save all predictions in a **pre-stageX-DATASET+** (with X subsequent of one).
 
 Relevant parameters:
 
 * Input path fine-tuned EXAR model
 * Temperature value
-* Output path for **pre-stagetwo-DATASET+** (optional)
+* Output path for **pre-stageX-DATASET+** (optional)
 
 ## merged *stage-one* meta-validator/EXAR evaluation: 
 
