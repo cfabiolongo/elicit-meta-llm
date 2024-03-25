@@ -44,8 +44,8 @@ This repository contains source code splitted in the following steps:
 * *stage-one* DATASET+ annotation building from pre-DATASET+
 * *stage-one* meta-validator fine-tuning
 * *stage-one* meta-validator evaluation
-* *stage-one* EXAR fine-tuning: llama_2_ft_dollycontext4_lora.py
-* *stage-one* EXAR evaluation: llama_2_ft_bertscore_dolly.py
+* *stage-one* EXAR fine-tuning
+* *stage-one* EXAR evaluation 
 * merged *stage-one* meta-validator/EXAR evaluation: llama_2_ft_bertcontext_dolly_pipe.py
 
 ## *stage-zero* fine-tuning
@@ -89,3 +89,15 @@ Question-Answering on **DATASET+**, by leveraging the exclusive-autoregressive (
 An example item from such fine-tuning is depicted in the following picture:
 
 ![Image 1](https://github.com/cfabiolongo/elicit-meta-llm/blob/master/images/prompt-finetuning.jpg)
+
+## *stage-one* EXAR evaluation
+
+The same code for above stage-zero evaluation can be used to evaluate EXAR evaluation for single adapter, on a test set o 100 (or more) items from dolly.
+The code can optionally save all predictions in a **pre-stagetwo-DATASET+**.
+
+## merged *stage-one* meta-validator/EXAR evaluation: 
+
+The following code is to evaluate overall performance of merged adapters meta-validator/EXAR.
+
+* filename: [llama_2_ft_bertcontext_dolly_pipe.py](https://github.com/cfabiolongo/elicit-meta-llm/blob/master/llama_2_ft_bertcontext_dolly_pipe.py)
+
