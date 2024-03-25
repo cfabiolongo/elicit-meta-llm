@@ -35,3 +35,13 @@ Follow the instructions reported [here](https://pytorch.org/) for the current sy
 > pip install scipy
 ```
 
+# Code usage
+
+This repository contains source code splitted in the following steps:
+
+* *stage-zero* model fine-tuning
+* *stage-zero* model evaluation
+
+
+
+
