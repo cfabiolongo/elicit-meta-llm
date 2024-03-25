@@ -70,10 +70,11 @@ This code was designed to annotate pre-DATASET+ with evaluations leveraging BERT
 
 ## *stage-one* meta-validator fine-tuning
 
-This code was designed to to build a new fine-tuned QLoRa instance of **Llama-2-7b-chat-hf** for the task of
+This code was designed to build a new fine-tuned QLoRa instance of **Llama-2-7b-chat-hf** for the task of
 validation on the predictions of *stage-zero* (DATASET+).
 
-## *stage-one* meta-validator fine-tuning
+## *stage-one* meta-validator evaluation
 
+This code was designed to evaluate meta-evaluation on single adaptar, from a test set of 100 items from DATASET+.
 
-
+* filename: [llama_2_ft_eval_metadolly.py](https://github.com/cfabiolongo/llama_2_ft_eval_metadolly.py)
