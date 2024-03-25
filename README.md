@@ -72,6 +72,7 @@ The code can optionally save all predictions in a **pre-DATASET+**.
 Relevant parameters:
  
 * Input path fine-tuned model
+* Temperature value
 * Output path for **pre-DATASET+** (optional)
 
 
@@ -107,6 +108,13 @@ The following code is aimed to evaluate meta-evaluation on single adapter, from 
 
 * filename: [llama_2_ft_eval_metadolly.py](https://github.com/cfabiolongo/elicit-meta-llm/blob/master/llama_2_ft_eval_metadolly.py)
 
+Relevant parameters:
+ 
+* Input excel **DATASET+**
+* Temperature value
+* Input path fine-tuned meta-validator model
+
+
 ## *stage-one* EXAR fine-tuning
 
 The following code is aimed to fine-tune an instance **Llama-2-7b-chat-hf** for the task of  
@@ -130,9 +138,27 @@ An example item from such fine-tuning is depicted in the following picture:
 The same code for above stage-zero evaluation can be used to evaluate EXAR evaluation for single adapter, on a test set o 100 (or more) items from dolly.
 The code can optionally save all predictions in a **pre-stagetwo-DATASET+**.
 
+Relevant parameters:
+
+* Input path fine-tuned EXAR model
+* Temperature value
+* Output path for **pre-stagetwo-DATASET+** (optional)
+
 ## merged *stage-one* meta-validator/EXAR evaluation: 
 
 The following code is to evaluate overall performance of merged adapters meta-validator/EXAR.
 
 * filename: [llama_2_ft_bertcontext_dolly_pipe.py](https://github.com/cfabiolongo/elicit-meta-llm/blob/master/llama_2_ft_bertcontext_dolly_pipe.py)
 
+Relevant parameters:
+
+* Input path fine-tuned EXAR model
+* Input path fine-tuned meta-validator model
+* Combination type (svd/linear/cat)
+* Combination weights
+* Metavalidation (True/False)
+* Autoregressive (True/False)
+* Temperature value for for Meta-validation
+* Temperature value for the first prediction
+* Temperature values for additional predictions after *False* Meta-validation
+* Output path for **pre-stagetwo-DATASET+** (optional)
