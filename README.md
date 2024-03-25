@@ -57,7 +57,7 @@ Question-Answering on the [databricks/dolly-v2-12b](https://huggingface.co/datab
 
 ## *stage-zero* evaluation
 
-This code was designed to evaluate #match (morphological) and BERT-score for a test set o 100 (or more) items from dolly.
+This code was designed to evaluate #match (morphological) and [BERTScore](https://huggingface.co/spaces/evaluate-metric/bertscore) for a test set o 100 (or more) items from dolly.
 The code can optionally save all predictions in a pre-DATASET+ dataset.
 
 * filename: [llama_2_ft_bertscore_dolly.py](https://github.com/cfabiolongo/elicit-meta-llm/blob/master/llama_2_ft_bertscore_dolly.py)
