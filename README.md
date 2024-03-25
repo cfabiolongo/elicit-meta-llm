@@ -39,10 +39,9 @@ Follow the instructions reported [here](https://pytorch.org/) for the current sy
 
 This repository contains source code splitted in the following steps:
 
-* *stage-zero* fine-tuning: llama_2_ft_dolly_lora.py
-* *stage-zero* evaluation: llama_2_ft_bertscore_dolly.py
-* *stage-one* DATASET+ building: ???
-* *stage-one* DATASET+ annotation: ???
+* *stage-zero* fine-tuning
+* *stage-zero* evaluation/pre-DATASET+ building
+* *stage-one* DATASET+ annotation building from pre-DATASET+
 * *stage-one* meta-validator fine-tuning: llama_2_ft_metadolly_lora.py
 * *stage-one* meta-validator evaluation: llama_2_ft_eval_metadolly.py
 * *stage-one* EXAR fine-tuning: llama_2_ft_dollycontext4_lora.py
@@ -52,10 +51,22 @@ This repository contains source code splitted in the following steps:
 ## *stage-zero* fine-tuning
 
 This code was designed to build a new fine-tuned QLoRa instance of **Llama-2-7b-chat-hf** for the task of 
-Question-Answering on [databricks/dolly-v2-12b](https://huggingface.co/databricks/dolly-v2-12b) dataset.
+Question-Answering on the [databricks/dolly-v2-12b](https://huggingface.co/databricks/dolly-v2-12b) dataset.
 
 * filename: llama_2_ft_dolly_lora.py
 
+## *stage-zero* evaluation
+
+This code was designed to evaluate #match (morphological) and BERT-score for a test set o 100 (or more) items from dolly.
+The code can optionally save all predictions in a pre-DATASET+ dataset.
+
+* filename: llama_2_ft_bertscore_dolly.py
+
+## *stage-zero* DATASET+ annotations
+
+This code was designed to annotate pre-DATASET+ with evaluations leveraging BERT-score, in order to build DATASET+.
+
+* filename: chech_dollypreds.py
 
 
 
