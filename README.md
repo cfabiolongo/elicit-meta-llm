@@ -82,7 +82,8 @@ The following code is aimed to evaluate meta-evaluation on single adapter, from 
 ## *stage-one* EXAR fine-tuning
 
 The following code is aimed to fine-tune an instance **Llama-2-7b-chat-hf** for the task of  
-Question-Answering on **DATASET+**, by leveraving the exclusive-autoregressive (EXAR) fine-tuning.
+Question-Answering on **DATASET+**, by leveraging the exclusive-autoregressive (EXAR) prompt.
 
 * filename: [llama_2_ft_dollycontext4_lora.py](https://github.com/cfabiolongo/elicit-meta-llm/blob/master/llama_2_ft_dollycontext4_lora.py)
 
+![Image 1](https://github.com/cfabiolongo/elicit-meta-llm/blob/master/images/prompt-finetuning.jpg)
