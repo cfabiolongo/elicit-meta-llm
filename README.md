@@ -42,8 +42,8 @@ This repository contains source code splitted in the following steps:
 * *stage-zero* fine-tuning
 * *stage-zero* evaluation/pre-DATASET+ building
 * *stage-one* DATASET+ annotation building from pre-DATASET+
-* *stage-one* meta-validator fine-tuning: llama_2_ft_metadolly_lora.py
-* *stage-one* meta-validator evaluation: llama_2_ft_eval_metadolly.py
+* *stage-one* meta-validator fine-tuning
+* *stage-one* meta-validator evaluation
 * *stage-one* EXAR fine-tuning: llama_2_ft_dollycontext4_lora.py
 * *stage-one* EXAR evaluation: llama_2_ft_bertscore_dolly.py
 * merged *stage-one* meta-validator/EXAR evaluation: llama_2_ft_bertcontext_dolly_pipe.py
@@ -78,3 +78,11 @@ validation on the predictions of *stage-zero* (**DATASET+**).
 The following code is aimed to evaluate meta-evaluation on single adapter, from a test set of 100 items from **DATASET+**.
 
 * filename: [llama_2_ft_eval_metadolly.py](https://github.com/cfabiolongo/elicit-meta-llm/blob/master/llama_2_ft_eval_metadolly.py)
+
+## *stage-one* EXAR fine-tuning
+
+The following code is aimed to fine-tune an instance **Llama-2-7b-chat-hf** for the task of  
+Question-Answering on **DATASET+**, by leveraving the exclusive-autoregressive (EXAR) fine-tuning.
+
+* filename: [llama_2_ft_dollycontext4_lora.py](https://github.com/cfabiolongo/elicit-meta-llm/blob/master/llama_2_ft_dollycontext4_lora.py)
+
