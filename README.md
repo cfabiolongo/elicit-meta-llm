@@ -1,4 +1,4 @@
-# Exclusive-Autoregressive fine-tuning/prompting
+# EXclusive-AutoRegressive (EXAR) fine-tuning/prompting
 
 This is the repository of the Python (3.10+) implementation for the Exclusive-Autoregressive fine-tuning/prompting of LLama-chat.
 
