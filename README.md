@@ -2,7 +2,7 @@
 
 This is the repository of the Python (3.10+) implementation for the Exclusive-Autoregressive fine-tuning/prompting of LLama-chat, for metacognitive LLMs building focused on Question-Answering.
 
-![Image 1](https://github.com/cfabiolongo/elicit-meta-llm/blob/master/images/meta-build.jpg)
+![Image 1](images/meta-build.jpg)
 
 # Installation
 
@@ -123,7 +123,7 @@ Relevant parameters:
 
 An example item from such fine-tuning is depicted in the following picture:
 
-![Image 1](https://github.com/cfabiolongo/elicit-meta-llm/blob/master/images/prompt-finetuning.jpg)
+![Image 1](images/prompt-finetuning.jpg)
 
 ## *stage-one* EXAR evaluation
 
