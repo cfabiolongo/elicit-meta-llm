@@ -9,8 +9,8 @@ This is the repository of the Python (3.10+) implementation for the Exclusive-Au
 ### Pandas 
 
 ```sh
-> pip install pandas
-> pip install openpyxl
+pip install pandas
+pip install openpyxl
 ```
 
 ### Pytorch
@@ -24,15 +24,15 @@ Follow the instructions reported [here](https://pytorch.org/) for the current sy
 ### QLoRA
 
 ```sh
-> pip install transformers==4.34.0
-> pip install peft==0.4.0
-> pip install sentencepiece==0.1.99
-> pip install datasets==2.13.0
-> pip install accelerate==0.23.0
-> pip install bitsandbytes==0.41.1
-> pip install trl==0.4.7
-> pip install safetensors>=0.3.1
-> pip install scipy
+pip install transformers==4.34.0
+pip install peft==0.4.0
+pip install sentencepiece==0.1.99
+pip install datasets==2.13.0
+pip install accelerate==0.23.0
+pip install bitsandbytes==0.41.1
+pip install trl==0.4.7
+pip install safetensors>=0.3.1
+pip install scipy
 ```
 
 # Code usage
