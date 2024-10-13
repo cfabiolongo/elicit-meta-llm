@@ -8,7 +8,7 @@ from peft import AutoPeftModelForCausalLM
 from transformers import AutoTokenizer
 from random import randrange
 import torch
-from datasets import load_dataset
+from datasets import Dataset
 
 import statistics
 from evaluate import load
@@ -35,7 +35,7 @@ model = AutoPeftModelForCausalLM.from_pretrained(
 tokenizer = AutoTokenizer.from_pretrained(output_dir)
 
 df = pd.read_excel('dataset/100_gpt_stories.xlsx')
-dataset_val = Dataset.from_pandas(df)
+dataset = Dataset.from_pandas(df)
 
 sub_prompt="Generate a response to the question given in Input. The response must be different from Context."
 

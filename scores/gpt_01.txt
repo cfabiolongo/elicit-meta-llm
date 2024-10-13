@@ -1,0 +1,1030 @@
+(llama2) fabio@minsky:~/llama/code$ python3 llama_2_ft_bertscore_gpt.py
+
+Model: ../models/finetuned/llama2-gpt_100ep
+Temperature: 0.1
+
+Loading checkpoint shards: 100%|████████████████████████████████████████████████████████| 2/2 [00:14<00:00,  7.30s/it]
+
+---------------- Record #0:
+
+Asking to truncate to max_length but no maximum length is provided and the model has no predefined maximum length. Default to no truncation.
+/home/fabio/anaconda3/envs/llama2/lib/python3.8/site-packages/bitsandbytes/nn/modules.py:224: UserWarning: Input type into Linear4bit is torch.float16, but bnb_4bit_compute_type=torch.float32 (default). This will lead to slow inference or training speed.
+  warnings.warn(f'Input type into Linear4bit is torch.float16, but bnb_4bit_compute_type=torch.float32 (default). This will lead to slow inference or training speed.')
+
+Prompt: While walking through the forest, Emily heard a rustling sound behind her. She turned around, but nothing was there. What could it be?
+
+Generated instruction:
+It was just the wind blowing through the trees.
+Ground truth:
+It was just the wind blowing through the trees.
+---> MATCH <---
+
+---------------- Record #1:
+
+
+Prompt: James was running late for his meeting and couldn't find his keys anywhere. Did he leave them at the office?
+
+Generated instruction:
+No, he left them in his car.
+Ground truth:
+No, they were in his coat pocket.
+
+---------------- Record #2:
+
+
+Prompt: The old house on the corner had been abandoned for years, but one night, a light appeared in the window. Who could have turned it on?
+
+Generated instruction:
+It was the neighbor, who was trying to scare away any potential buyers.
+Ground truth:
+It was a group of teenagers playing a prank.
+
+---------------- Record #3:
+
+
+Prompt: Lilly baked a batch of cookies, but when she tasted one, it was too salty. Did she confuse the salt with sugar?
+
+Generated instruction:
+Yes, she accidentally used salt instead of sugar.
+Ground truth:
+Yes, she accidentally used salt instead of sugar.
+---> MATCH <---
+
+---------------- Record #4:
+
+
+Prompt: Tom was getting ready for his morning jog when he noticed his sneakers were missing. Where could they be?
+
+Generated instruction:
+They were in the garage the whole time.
+Ground truth:
+His dog had dragged them into the garden.
+
+---------------- Record #5:
+
+
+Prompt: Sara noticed that her favorite book was missing from the shelf. Did someone borrow it without asking?
+
+Generated instruction:
+Yes, her brother had borrowed it without asking.
+Ground truth:
+Yes, her brother took it to read.
+
+---------------- Record #6:
+
+
+Prompt: The strange footprints in the snow led right up to Jack's front door. Who left them?
+
+Generated instruction:
+It was the neighbor’s cat.
+Ground truth:
+It was the neighbor’s cat.
+---> MATCH <---
+
+---------------- Record #7:
+
+
+Prompt: Hannah couldn’t find her phone all morning. Did she leave it at the café?
+
+Generated instruction:
+No, it was under her bed the whole time.
+Ground truth:
+No, it was under her bed the whole time.
+---> MATCH <---
+
+---------------- Record #8:
+
+
+Prompt: Mark was surprised to find a letter in his mailbox with no return address. Who sent it?
+
+Generated instruction:
+It was from an old friend who wanted to reconnect.
+Ground truth:
+It was from an old friend who wanted to reconnect.
+---> MATCH <---
+
+---------------- Record #9:
+
+
+Prompt: The clock on the wall stopped ticking at exactly midnight. Why did it stop?
+
+Generated instruction:
+The power had gone off during the night.
+Ground truth:
+The batteries had died.
+
+---------------- Record #10:
+
+
+Prompt: Lucy saw a rainbow right after the storm ended. What does the rainbow symbolize?
+
+Generated instruction:
+It symbolizes hope and new beginnings.
+Ground truth:
+Hope and new beginnings.
+
+---------------- Record #11:
+
+
+Prompt: Ben’s flashlight flickered and went out while he was in the woods. Did the batteries run out?
+
+Generated instruction:
+Yes, the batteries had run out.
+Ground truth:
+Yes, the batteries were dead.
+
+---------------- Record #12:
+
+
+Prompt: A loud crash woke Megan up in the middle of the night. What caused the noise?
+
+Generated instruction:
+It was her cat, Mr. Whiskers, who had jumped on the bed.
+Ground truth:
+It was a tree branch that fell on the roof.
+
+---------------- Record #13:
+
+
+Prompt: The car wouldn't start even though Mia had just filled the gas tank. What could be wrong?
+
+Generated instruction:
+The battery was dead.
+Ground truth:
+The battery was dead.
+---> MATCH <---
+
+---------------- Record #14:
+
+
+Prompt: While playing soccer, Jake noticed a shadow moving behind him. Was it another player?
+
+Generated instruction:
+No, it was just a bird flying overhead.
+Ground truth:
+No, it was just a bird flying overhead.
+---> MATCH <---
+
+---------------- Record #15:
+
+
+Prompt: Sophie’s cat stared at the corner of the room, hissing. Was there something there?
+
+Generated instruction:
+No, nothing was there.
+Ground truth:
+No, it was just a shadow.
+
+---------------- Record #16:
+
+
+Prompt: Anna found a strange package on her doorstep with no label. Who sent it?
+
+Generated instruction:
+It was from her best friend, who was playing a prank on her.
+Ground truth:
+It was a delivery meant for her neighbor.
+
+---------------- Record #17:
+
+
+Prompt: Leo’s dog was barking furiously at the door. Was someone outside?
+
+Generated instruction:
+No, it was just a squirrel.
+Ground truth:
+No, it was just a squirrel.
+---> MATCH <---
+
+---------------- Record #18:
+
+
+Prompt: The painting in the hallway seemed to be slightly crooked. Did someone bump into it?
+
+Generated instruction:
+Yes, a clumsy foot had bumped into it.
+Ground truth:
+Yes, a guest had accidentally brushed against it.
+
+---------------- Record #19:
+
+
+Prompt: Mike’s phone suddenly played a song he didn’t recognize. Did someone send him the song?
+
+Generated instruction:
+Yes, it was a mistake by his brother.
+Ground truth:
+Yes, it was a Bluetooth mishap from a nearby device.
+
+---------------- Record #20:
+
+
+Prompt: A mysterious fog rolled into the valley, making everything look eerie. What caused it?
+
+Generated instruction:
+It was just natural weather conditions.
+Ground truth:
+It was just natural weather conditions.
+---> MATCH <---
+
+---------------- Record #21:
+
+
+Prompt: Rachel opened the old book and a note fell out. Who wrote the note?
+
+Generated instruction:
+It was her grandmother.
+Ground truth:
+It was her grandmother, decades ago.
+
+---------------- Record #22:
+
+
+Prompt: The radio in the living room turned on by itself. Was it broken?
+
+Generated instruction:
+No, it wasn’t broken. It was turned on by the house’s wireless network.
+Ground truth:
+No, it was set to a timer.
+
+---------------- Record #23:
+
+
+Prompt: Ella found her necklace tangled in a knot. Did someone tamper with it?
+
+Generated instruction:
+No, it was tangled while she was sleeping.
+Ground truth:
+No, it got tangled while she was sleeping.
+
+---------------- Record #24:
+
+
+Prompt: Sam was walking down the street when he noticed a car following him. Was it a coincidence?
+
+Generated instruction:
+Yes, it was a coincidence.
+Ground truth:
+Yes, the car was just heading in the same direction.
+
+---------------- Record #25:
+
+
+Prompt: The cake came out of the oven burned on the top. Did Mia set the temperature too high?
+
+Generated instruction:
+Yes, she set the temperature too high.
+Ground truth:
+Yes, she accidentally set it too high.
+
+---------------- Record #26:
+
+
+Prompt: A strange light appeared in the sky just after sunset. Was it a UFO?
+
+Generated instruction:
+No, it was a weather balloon.
+Ground truth:
+No, it was a weather balloon.
+---> MATCH <---
+
+---------------- Record #27:
+
+
+Prompt: Jessie heard footsteps in the attic late at night. Was someone up there?
+
+Generated instruction:
+No, it was just the wind.
+Ground truth:
+No, it was just the house settling.
+
+---------------- Record #28:
+
+
+Prompt: Chris found a letter from the past hidden in the attic. Who wrote it?
+
+Generated instruction:
+It was from his great-grandfather, who wanted to make sure Chris knew the family history.
+Ground truth:
+It was from the previous owners of the house.
+
+---------------- Record #29:
+
+
+Prompt: Laura’s car alarm went off suddenly. Did someone try to break in?
+
+Generated instruction:
+No, it was just a false alarm.
+Ground truth:
+No, it was just a false alarm.
+---> MATCH <---
+
+---------------- Record #30:
+
+
+Prompt: Tom’s bike had a flat tire after being left outside overnight. Did someone tamper with it?
+
+Generated instruction:
+No, it was a sharp stone that caused the flat.
+Ground truth:
+No, it was a sharp stone that caused the flat.
+---> MATCH <---
+
+---------------- Record #31:
+
+
+Prompt: Julie noticed that her plants were wilting despite watering them. Did she overwater them?
+
+Generated instruction:
+Yes, she overwatered them.
+Ground truth:
+Yes, they were overwatered.
+
+---------------- Record #32:
+
+
+Prompt: A package was delivered to Jack’s house, but he didn’t order anything. Who sent it?
+
+Generated instruction:
+It was a gift from a friend.
+Ground truth:
+It was a gift from a friend.
+---> MATCH <---
+
+---------------- Record #33:
+
+
+Prompt: While fishing, Ryan felt a strong tug on his line. Did he catch a big fish?
+
+Generated instruction:
+No, it was just a piece of seaweed.
+Ground truth:
+No, it was just a piece of seaweed.
+---> MATCH <---
+
+---------------- Record #34:
+
+
+Prompt: Emma’s flashlight kept flickering in the cave. Was it faulty?
+
+Generated instruction:
+Yes, the bulb was loose.
+Ground truth:
+Yes, the bulb was loose.
+---> MATCH <---
+
+---------------- Record #35:
+
+
+Prompt: A dog barked outside Peter’s window every morning at dawn. Why did it bark?
+
+Generated instruction:
+It was barking at the passing mailman.
+Ground truth:
+It was barking at the passing mailman.
+---> MATCH <---
+
+---------------- Record #36:
+
+
+Prompt: The door creaked loudly every time it opened. Did it need oil?
+
+Generated instruction:
+Yes, it did need oil.
+Ground truth:
+Yes, the hinges needed oil.
+
+---------------- Record #37:
+
+
+Prompt: Sophie found a spider in her shoe. How did it get there?
+
+Generated instruction:
+It had crawled in overnight.
+Ground truth:
+It had crawled in overnight.
+---> MATCH <---
+
+---------------- Record #38:
+
+
+Prompt: Michael’s internet connection kept dropping during his video call. Was the router faulty?
+
+Generated instruction:
+Yes, it was faulty.
+Ground truth:
+Yes, it needed to be reset.
+
+---------------- Record #39:
+
+
+Prompt: The cat meowed loudly in the middle of the night. Was it hungry?
+
+Generated instruction:
+No, it was just meowing to wake up the owner.
+Ground truth:
+Yes, it wanted food.
+
+---------------- Record #40:
+
+
+Prompt: A loud bang came from the garage late at night. What caused it?
+
+Generated instruction:
+A shelf had fallen over.
+Ground truth:
+A shelf had fallen over.
+---> MATCH <---
+
+---------------- Record #41:
+
+
+Prompt: Liam's computer screen suddenly went black. Did it crash?
+
+Generated instruction:
+No, it just went to sleep.
+Ground truth:
+No, it just went into sleep mode.
+
+---------------- Record #42:
+
+
+Prompt: A painting fell off the wall with no warning. What caused it?
+
+Generated instruction:
+The dog had knocked it off.
+Ground truth:
+The hook had come loose.
+
+---------------- Record #43:
+
+
+Prompt: The microwave stopped working in the middle of heating dinner. Did it break?
+
+Generated instruction:
+No, it wasn't broken. The fuse had blown.
+Ground truth:
+No, the fuse had blown.
+
+---------------- Record #44:
+
+
+Prompt: A strange shadow appeared on the wall in Clara’s room. What caused it?
+
+Generated instruction:
+It was just a stain from a broken pot.
+Ground truth:
+It was just a passing car's headlights.
+
+---------------- Record #45:
+
+
+Prompt: The elevator stopped between floors for a few minutes. Did it break down?
+
+Generated instruction:
+No, it was just a temporary malfunction.
+Ground truth:
+No, it was just a temporary malfunction.
+---> MATCH <---
+
+---------------- Record #46:
+
+
+Prompt: A loud beep came from the smoke detector. Was there a fire?
+
+Generated instruction:
+No, there was no fire. The beep was just a malfunction.
+Ground truth:
+No, the battery needed replacing.
+
+---------------- Record #47:
+
+
+Prompt: David’s car made a strange noise when he started it. Was something wrong with the engine?
+
+Generated instruction:
+Yes, the oil was low.
+Ground truth:
+Yes, it needed an oil change.
+
+---------------- Record #48:
+
+
+Prompt: The lights flickered during the storm. Was the power going out?
+
+Generated instruction:
+Yes, the power was going out.
+Ground truth:
+Yes, it was due to the strong winds.
+
+---------------- Record #49:
+
+
+Prompt: The grocery store was unusually crowded on a weekday. Was there a special event?
+
+Generated instruction:
+No, it was just a fluke.
+Ground truth:
+No, it was just a holiday rush.
+
+---------------- Record #50:
+
+
+Prompt: Karen’s plants were covered in small white spots. Were they sick?
+
+Generated instruction:
+Yes, they were sick with a fungal infection.
+Ground truth:
+Yes, they had a fungal infection.
+
+---------------- Record #51:
+
+
+Prompt: The washing machine made a loud banging sound. Was it broken?
+
+Generated instruction:
+No, it wasn't broken. The load was unbalanced.
+Ground truth:
+No, the load was unbalanced.
+
+---------------- Record #52:
+
+
+Prompt: Samantha’s shoes were wet even though it hadn’t rained. How did they get wet?
+
+Generated instruction:
+They got wet while she was walking through the muddy field.
+Ground truth:
+She stepped in a puddle.
+
+---------------- Record #53:
+
+
+Prompt: The window wouldn’t close properly. Was it stuck?
+
+Generated instruction:
+Yes, it was stuck.
+Ground truth:
+Yes, the frame had swollen from moisture.
+
+---------------- Record #54:
+
+
+Prompt: Nick’s phone stopped charging overnight. Was the charger faulty?
+
+Generated instruction:
+Yes, the charger was faulty.
+Ground truth:
+Yes, the cable was damaged.
+
+---------------- Record #55:
+
+
+Prompt: While hiking, Olivia heard a growl in the distance. Was it a wild animal?
+
+Generated instruction:
+No, it was just the wind through the trees.
+Ground truth:
+No, it was just the wind through the trees.
+---> MATCH <---
+
+---------------- Record #56:
+
+
+Prompt: A loud bang came from the basement. What caused it?
+
+Generated instruction:
+A box had fallen off the shelf.
+Ground truth:
+A box had fallen off the shelf.
+---> MATCH <---
+
+---------------- Record #57:
+
+
+Prompt: The doorbell rang, but no one was there. Was it a prank?
+
+Generated instruction:
+Yes, it was a prank by some kids.
+Ground truth:
+Yes, some kids were playing a prank.
+
+---------------- Record #58:
+
+
+Prompt: Mark’s jacket smelled strange after being stored away. Was it mold?
+
+Generated instruction:
+Yes, it was mold that made the jacket smell strange.
+Ground truth:
+Yes, it had developed mold.
+
+---------------- Record #59:
+
+
+Prompt: A balloon popped in the middle of the party. Did someone pop it on purpose?
+
+Generated instruction:
+No, it was a faulty valve.
+Ground truth:
+No, it just popped on its own.
+
+---------------- Record #60:
+
+
+Prompt: Sophia’s laptop shut down unexpectedly. Did it overheat?
+
+Generated instruction:
+Yes, it overheated.
+Ground truth:
+Yes, it overheated.
+---> MATCH <---
+
+---------------- Record #61:
+
+
+Prompt: The streetlight outside Sam’s house flickered all night. Was it broken?
+
+Generated instruction:
+Yes, it was broken.
+Ground truth:
+Yes, the bulb was faulty.
+
+---------------- Record #62:
+
+
+Prompt: Katie’s coffee tasted bitter. Did she forget to add sugar?
+
+Generated instruction:
+Yes, she forgot to add sugar.
+Ground truth:
+Yes, she forgot to add sugar.
+---> MATCH <---
+
+---------------- Record #63:
+
+
+Prompt: While walking by the river, Max saw something shiny in the water. Was it a treasure?
+
+Generated instruction:
+No, it was just a soda can.
+Ground truth:
+No, it was just a soda can.
+---> MATCH <---
+
+---------------- Record #64:
+
+
+Prompt: The heater made a loud clanking noise. Was it broken?
+
+Generated instruction:
+No, it wasn't broken. The noise was caused by a loose wire.
+Ground truth:
+No, it just needed maintenance.
+
+---------------- Record #65:
+
+
+Prompt: A gust of wind blew all the papers off Olivia’s desk. Was the window open?
+
+Generated instruction:
+Yes, the window was open.
+Ground truth:
+Yes, the window was open.
+---> MATCH <---
+
+---------------- Record #66:
+
+
+Prompt: A strange smell filled the kitchen. Was something burning?
+
+Generated instruction:
+Yes, a dish was left in the oven for too long.
+Ground truth:
+Yes, a dish was left in the oven too long.
+
+---------------- Record #67:
+
+
+Prompt: The TV turned on by itself in the middle of the night. Was it a power surge?
+
+Generated instruction:
+Yes, it was a power surge that caused the TV to turn on.
+Ground truth:
+Yes, it was caused by a power surge.
+
+---------------- Record #68:
+
+
+Prompt: The keys were missing from the front table. Did someone take them?
+
+Generated instruction:
+Yes, they were taken by the dog.
+Ground truth:
+No, they had fallen behind the couch.
+
+---------------- Record #69:
+
+
+Prompt: Emma found a small hole in her sweater. Did a moth eat it?
+
+Generated instruction:
+Yes, a moth had gotten to it.
+Ground truth:
+Yes, a moth had gotten to it.
+---> MATCH <---
+
+---------------- Record #70:
+
+
+Prompt: A strange sound echoed through the cave. Was it an animal?
+
+Generated instruction:
+Yes, it was a bat that flew by.
+Ground truth:
+No, it was just the wind.
+
+---------------- Record #71:
+
+
+Prompt: She opened the book and found an old photo inside. Whose picture was this?
+
+Generated instruction:
+It was her grandmother's.
+Ground truth:
+It was her grandmother's.
+---> MATCH <---
+
+---------------- Record #72:
+
+
+Prompt: The alarm went off in the middle of the night. What had triggered it?
+
+Generated instruction:
+It was the neighbor’s cat.
+Ground truth:
+It was the neighbor's cat.
+
+---------------- Record #73:
+
+
+Prompt: He saw the shooting star and quickly made a wish. What did he wish for?
+
+Generated instruction:
+500 miles away, a little girl was born.
+Ground truth:
+A new beginning.
+
+---------------- Record #74:
+
+
+Prompt: The door creaked open slowly. Who was there?
+
+Generated instruction:
+It was only the wind.
+Ground truth:
+It was only the wind.
+---> MATCH <---
+
+---------------- Record #75:
+
+
+Prompt: The letter arrived unexpectedly. Who sent it?
+
+Generated instruction:
+It was from an old friend who wanted to reconnect.
+Ground truth:
+An old friend from high school.
+
+---------------- Record #76:
+
+
+Prompt: The key fit perfectly into the lock. What did the door lead to?
+
+Generated instruction:
+500 miles away from the starting point.
+Ground truth:
+A hidden attic.
+
+---------------- Record #77:
+
+
+Prompt: She found a map under the floorboards. Where did it lead?
+
+Generated instruction:
+To a forgotten treasure.
+Ground truth:
+To a forgotten treasure.
+---> MATCH <---
+
+---------------- Record #78:
+
+
+Prompt: The strange noise came from the attic. What was making the noise?
+
+Generated instruction:
+It was a broken fan that was making the noise.
+Ground truth:
+A broken fan spinning in the wind.
+
+---------------- Record #79:
+
+
+Prompt: The recipe was missing a crucial ingredient. What was it?
+
+Generated instruction:
+500 grams of sugar.
+Ground truth:
+A pinch of love.
+
+---------------- Record #80:
+
+
+Prompt: The dog wouldn’t stop barking at the window. What did it see?
+
+Generated instruction:
+a cat walking by
+Ground truth:
+A squirrel running by.
+
+---------------- Record #81:
+
+
+Prompt: He opened the box with trembling hands. What was inside?
+
+Generated instruction:
+Nothing.
+Ground truth:
+A note saying 'I forgive you.'
+
+---------------- Record #82:
+
+
+Prompt: The clock struck midnight, and the power went out. What caused the blackout?
+
+Generated instruction:
+The storm had damaged the power lines.
+Ground truth:
+A fallen tree on the power line.
+
+---------------- Record #83:
+
+
+Prompt: She stared at the painting on the wall. Why did it feel familiar?
+
+Generated instruction:
+It was painted by her father.
+Ground truth:
+It was painted by her father.
+---> MATCH <---
+
+---------------- Record #84:
+
+
+Prompt: He found an old diary in the attic. Whose diary was it?
+
+Generated instruction:
+It belonged to his grandmother.
+Ground truth:
+His great-grandmother's.
+
+---------------- Record #85:
+
+
+Prompt: The phone rang, but no one was there. Who was calling?
+
+Generated instruction:
+It was the UPS delivery man with a package.
+Ground truth:
+It was a wrong number.
+
+---------------- Record #86:
+
+
+Prompt: The old man smiled as he looked at the photograph. Who was in the picture?
+
+Generated instruction:
+The picture was of his long-lost brother.
+Ground truth:
+His long-lost brother.
+
+---------------- Record #87:
+
+
+Prompt: The machine stopped working abruptly. What caused the malfunction?
+
+Generated instruction:
+The batteries were faulty.
+Ground truth:
+A loose wire.
+
+---------------- Record #88:
+
+
+Prompt: She saw a shadow pass by the window. Who was it?
+
+Generated instruction:
+It was the neighbor’s cat.
+Ground truth:
+Just the neighbor taking a walk.
+
+---------------- Record #89:
+
+
+Prompt: The package arrived earlier than expected. Who sent it?
+
+Generated instruction:
+It was a surprise package from an old friend.
+Ground truth:
+A surprise gift from her best friend.
+
+---------------- Record #90:
+
+
+Prompt: He found a note in his coat pocket. What did it say?
+
+Generated instruction:
+“Meet me at sunset”
+Ground truth:
+Meet me at sunset.
+
+---------------- Record #91:
+
+
+Prompt: The cake was missing from the kitchen counter. Who took it?
+
+Generated instruction:
+It was the dog. It had eaten it.
+Ground truth:
+The dog had eaten it.
+
+---------------- Record #92:
+
+
+Prompt: The music box started playing on its own. How did that happen?
+
+Generated instruction:
+It was set on a timer.
+Ground truth:
+It was set on a timer.
+---> MATCH <---
+
+---------------- Record #93:
+
+
+Prompt: The doorbell rang, but no one was outside. Why?
+
+Generated instruction:
+It was the wind that made the bell ring.
+Ground truth:
+A prank by some kids.
+
+---------------- Record #94:
+
+
+Prompt: She opened the book and found an old photo inside. Whose picture was this?
+
+Generated instruction:
+It was her grandmother's.
+Ground truth:
+It was her grandmother's.
+---> MATCH <---
+
+---------------- Record #95:
+
+
+Prompt: The alarm went off in the middle of the night. What had triggered it?
+
+Generated instruction:
+It was the neighbor’s cat.
+Ground truth:
+It was the neighbor's cat.
+
+---------------- Record #96:
+
+
+Prompt: He saw the shooting star and quickly made a wish. What did he wish for?
+
+Generated instruction:
+500 miles away, a little girl was born.
+Ground truth:
+A new beginning.
+
+---------------- Record #97:
+
+
+Prompt: The door creaked open slowly. Who was there?
+
+Generated instruction:
+It was only the wind.
+Ground truth:
+It was only the wind.
+---> MATCH <---
+
+#Match: 33
+
+Some weights of RobertaModel were not initialized from the model checkpoint at roberta-large and are newly initialized: ['roberta.pooler.dense.weight', 'roberta.pooler.dense.bias']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+Media della precisione: 0.9448227772907335
+Media della recall: 0.9501311870253816
+Media della f1: 0.9473397409429356
