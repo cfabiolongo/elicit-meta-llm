@@ -1,27 +1,27 @@
+import os
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"  # or "0,1" for multiple GPUs
+
+
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig, TrainingArguments
+import pandas as pd
 
-from datasets import load_dataset
+from datasets import load_dataset, Dataset
 from random import randrange
 
 # General parameters
 epoche = 100
 lr = 2e-3
-path_model = f"../models/finetuned/llama-dolly_qa_check_{epoche}ep"
+path_model = f"../models/finetuned/llama2-gpt_{epoche}ep"
 
-# Load dataset from the hub
-dataset = load_dataset("databricks/databricks-dolly-15k", split="train")
+df = pd.read_excel('dataset/100_gpt_stories.xlsx')
 
-# Filtra il dataset
-filtered_dataset = dataset.filter(lambda example: example['category'] == "open_qa" and len(example["response"]) <= 100)
-
-# Reduce dataset to the first 1000 records
-dataset = filtered_dataset.select(range(1000))
+dataset = Dataset.from_pandas(df)
 
 print(f"dataset size: {len(dataset)}")
 print(dataset[randrange(len(dataset))])
 
-sub_prompt="Generate a response to the question given in Input. The response must be different from Context."
+sub_prompt="Generate a response to the question given in Input."
 
 def format_instruction(sample):
 	return f"""### Context:
