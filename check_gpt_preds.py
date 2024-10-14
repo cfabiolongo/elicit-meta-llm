@@ -74,16 +74,16 @@ def check_admissibility(row):
 
 
 # Leggi il file Excel
-df = pd.read_excel('dataset/dolly_openqa_ultimepreds.xlsx')
+df = pd.read_excel('dataset/gpt_preds_t0.1.xlsx')
 
 # Applica la funzione alla colonna 'validazione' del DataFrame
 # df['validazione'] = df['validazione'].apply(elimina_numeri_punto)
 
 # Applica la funzione check_admissibility a ogni riga e crea la colonna "validation"
-df['new_validation'] = df.apply(check_admissibility, axis=1)
+df['validation'] = df.apply(check_admissibility, axis=1)
 
 # Salva il DataFrame modificato in un nuovo file Excel
-df.to_excel('dataset/dolly_openqa_ultimeval2.xlsx', index=False)
+df.to_excel('dataset/gpt_preds_t0.1_val.xlsx', index=False)
 
-print("File 'dolly_openqa_validations.xlsx' creato con successo con la colonna 'validation'.")
+print("File 'gpt_preds_t0.1_val.xlsx' successfully created with column 'validation'.")
 

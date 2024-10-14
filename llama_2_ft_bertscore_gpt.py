@@ -102,7 +102,14 @@ print("Media della recall:", recall_media)
 f1_media = statistics.mean(f1_scores)
 print("Media della f1:", f1_media)
 
+# writing excel dataframe with predictions (Generated_Response)
 
+filename = f"gpt_preds_t{temp}"
 
+df['Generated_Response'] = preds
+df['Precision'] = precision_scores
+df['Recall'] = recall_scores
+df['f1'] = f1_scores
+df.to_excel(f"dataset/{filename}.xlsx")
 
-    
+print(f"\nFile {filename}.xlsx successfully created with column 'Generated_Response'.")
