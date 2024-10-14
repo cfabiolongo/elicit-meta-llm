@@ -1,40 +1,68 @@
-import os
-os.environ["CUDA_VISIBLE_DEVICES"] = "0"  # or "0,1" for multiple GPUs
-
-
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig, TrainingArguments
 import pandas as pd
-
-from datasets import Dataset
+from datasets import load_dataset, concatenate_datasets, Dataset
 from random import randrange
+
 
 # General parameters
 epoche = 100
 lr = 2e-3
-path_model = f"../models/finetuned/llama2-gpt_{epoche}ep"
+path_model = f"../models/finetuned/llama-metadolly2_qa_super100_{epoche}ep"
 
-df = pd.read_excel('dataset/100_gpt_stories.xlsx')
+####################################### from dataset
 
-dataset = Dataset.from_pandas(df)
+# Load dataset from the hub
+dataset = load_dataset("databricks/databricks-dolly-15k", split="train")
 
-print(f"dataset size: {len(dataset)}")
-print(dataset[randrange(len(dataset))])
+# Filtra il dataset
+filtered_dataset = dataset.filter(lambda example: example['category'] == "open_qa" and len(example["response"]) <= 100 and example["context"] == "")
 
-sub_prompt="Generate a response to the question given in Input."
+# Reduce dataset to the first 1000 records
+dataset1 = filtered_dataset.select(range(1000))
+
+df1 = dataset1.to_pandas()
+df1 = df1[['instruction', 'response']]
+df1['validation'] = "CORRECT"
+
+####################################### from past inference
+
+df2 = pd.read_excel('dataset/dolly_openqa_validations_super100.xlsx')
+
+df2['response'] = df2['Generated_Response'].values
+df2 = df2.rename(columns={'Question': 'instruction'})
+df2 = df2[['instruction', 'response', 'validation']]
+
+
+# Concateniamo i due DataFrame
+df_conc = pd.concat([df1, df2])
+
+print("removing duplicate responses.....")
+print(f"dataset size (before): {len(df_conc)}")
+
+# Eliminiamo i duplicati basati su "question" e "response"
+df_conc = df_conc.drop_duplicates(subset=['instruction', 'response'], keep='first')
+
+dataset_conc = Dataset.from_pandas(df_conc)
+
+print(f"dataset size: {len(dataset_conc)}")
+print(dataset_conc[randrange(len(dataset_conc))])
+
+#######################################
+
+sub_prompt="Validate the response given in Input with CORRECT or WRONG, considering the question given in Context."
 
 def format_instruction(sample):
 	return f"""### Context:
+{sample['instruction']}
 ### Instruction:
 {sub_prompt}
 ### Input:
-{sample['instruction']}
+{sample['response']}
 
 ### Response:
-{sample['response']}
+{sample['validation']}
 """
-
-print(format_instruction(dataset[randrange(len(dataset))]))
 
 # Hugging Face model id
 # model_id = "../models/7B"  # non-gated
@@ -99,7 +127,7 @@ max_seq_length = 2048 # max sequence length for model and packing of the dataset
 
 trainer = SFTTrainer(
     model=model,
-    train_dataset=dataset,
+    train_dataset=dataset_conc,
     peft_config=peft_config,
     max_seq_length=max_seq_length,
     tokenizer=tokenizer,
@@ -116,21 +144,3 @@ trainer.save_model(path_model)
 
 print("\nFinetuning complete.")
 print(f"\nPath model: {path_model}\n")
-
-
-""" Nice! our model works! If want to accelerate our model we can deploy it with Text Generation
-Inference. Therefore we would need to merge our adapter weights into the base model. """
-
-from peft import AutoPeftModelForCausalLM
-
-model = AutoPeftModelForCausalLM.from_pretrained(
-    args.output_dir,
-    low_cpu_mem_usage=True,
-)
-
-# Merge LoRA and base model
-merged_model = model.merge_and_unload()
-
-# Save the merged model
-merged_model.save_pretrained("../models/finetuned/llama2-gpt_100ep_merged", safe_serialization=True)
-tokenizer.save_pretrained("../models/finetuned/llama2-gpt_100ep_merged")

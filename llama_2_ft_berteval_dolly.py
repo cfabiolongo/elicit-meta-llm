@@ -1,5 +1,5 @@
-# import os
-# os.environ["CUDA_VISIBLE_DEVICES"] = "0"  # or "0,1" for multiple GPUs
+import os
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"  # or "0,1" for multiple GPUs
 
 
 import pandas as pd
@@ -8,7 +8,7 @@ from peft import AutoPeftModelForCausalLM
 from transformers import AutoTokenizer
 from random import randrange
 import torch
-from datasets import Dataset
+from datasets import load_dataset
 
 import statistics
 from evaluate import load
@@ -16,11 +16,11 @@ bertscore = load("bertscore")
 
 
 # General parameters
-model_name = "llama2-gpt_100ep"
-output_dir = f"/home/fabio/llama/models/finetuned/{model_name}"
-temp = 0.1
+model_name = "llama-dollycontext_qa_50ep"
+output_dir = f"../models/finetuned/{model_name}"
+temp = 0.6
 max_new_tokens = 512
-gpu = "cuda"
+gpu = "cuda:0"
 
 print(f"\nModel: {output_dir}\nTemperature: {temp}\n")
 
@@ -34,10 +34,15 @@ model = AutoPeftModelForCausalLM.from_pretrained(
 )
 tokenizer = AutoTokenizer.from_pretrained(output_dir)
 
-df = pd.read_excel('dataset/100_gpt_stories.xlsx')
-dataset = Dataset.from_pandas(df)
+# Load dataset from the hub
+dataset = load_dataset("databricks/databricks-dolly-15k", split="train")
 
-sub_prompt="Generate a response to the question given in Input."
+# Filtra il dataset
+filtered_dataset = dataset.filter(lambda example: example['category'] == "open_qa" and len(example["response"]) <= 100)
+
+dataset = filtered_dataset.select(range(1000))
+
+sub_prompt="Generate a CORRECT response to the question given in Input. Context may contain a previous Response XXXX indicated as WRONG or CORRECT. In case of WRONG, Response must be different from XXXX. In case of CORRECT, generate XXXX again."
 
 preds = []
 match = 0
@@ -48,7 +53,8 @@ for i in range(len(dataset)):
     
     d = dataset[i]   
               
-    prompt = f"""### Instruction:
+    prompt = f"""### Context:
+    ### Instruction:
     {sub_prompt}   
     ### Input:
     {d['instruction']}
@@ -101,6 +107,28 @@ print("Media della recall:", recall_media)
 
 f1_media = statistics.mean(f1_scores)
 print("Media della f1:", f1_media)
+
+
+# Scrittura excel
+results_dict = {
+    'Question': dataset['instruction'],
+    'Response': dataset['response'],
+    'Generated_Response': preds,
+    'Precision': precision_scores,
+    'Recall': recall_scores,
+    'F1': f1_scores
+}
+
+# Creazione del DataFrame
+results_df = pd.DataFrame(results_dict)
+
+# Definire il percorso del file Excel
+excel_file = 'dataset/dolly_openqa_preds.xlsx'
+
+# Scrivere il DataFrame nel file Excel
+results_df.to_excel(excel_file, index=False)
+
+print("File Excel creato con successo:", excel_file)
 
 
 
