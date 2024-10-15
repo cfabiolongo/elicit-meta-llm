@@ -18,9 +18,10 @@ bertscore = load("bertscore")
 # rouge = load("rouge")
 # bleu = load("bleu")
 
-filename = 'gpt_preds_t0.6'
+filename = 'dolly_openqa'
 
-df = pd.read_excel(f'dataset/{filename}.xlsx')
+df = pd.read_excel(f'dataset/{filename}.xlsx', index_col=None)
+df = df.fillna('')
 dataset = Dataset.from_pandas(df)
 print("#dataset items: ", len(dataset))
 
@@ -43,9 +44,13 @@ rouge = Rouge()
 for i in range(len(dataset)):
 
     print(f"\n---------------- Record #{i}:\n")
-    
+
     d = dataset[i]
 
+    print("pred: ", d['Generated_Response'])
+    print("ref: ", d['response'])
+
+    # BERTScore section
     results_bert = bertscore.compute(predictions=[d['Generated_Response']], references=[d['response']], model_type="microsoft/deberta-v2-xxlarge-mnli")
 
     # BERTSCORE section
@@ -69,8 +74,14 @@ for i in range(len(dataset)):
         match = match + 1
         print("---> MATCH <---")
         matches.append("CORRECT")
+    elif rouge_score['f'] > 0.5 and f1_scores[0] > 0.5:
+        matches.append("CORRECT")
+    elif rouge_score['p'] > 0.6 or rouge_score['r'] > 0.6:
+        matches.append("CORRECT")
+    elif f1_scores[0] > 0.9:
+        matches.append("CORRECT")
     else:
-        matches.append("???")
+        matches.append("WRONG")
 
 
     # Calcola BLEU per questa predizione
@@ -109,6 +120,7 @@ df['VALIDATION'] = matches
 
 print("\n#MATCH:", match)
 
-df.to_excel(f"dataset/{file_output}.xlsx")
+df.reset_index(drop=True, inplace=True)
+df.to_excel(f"dataset/{file_output}.xlsx", index=False)
 
 print(f"\nFile {file_output}.xlsx successfully created'.")
