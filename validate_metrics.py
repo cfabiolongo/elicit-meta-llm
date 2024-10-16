@@ -2,10 +2,6 @@
 # os.environ["CUDA_VISIBLE_DEVICES"] = "0"  # or "0,1" for multiple GPUs
 
 import pandas as pd
-import torch
-from peft import AutoPeftModelForCausalLM
-from transformers import AutoTokenizer
-import torch
 from datasets import Dataset
 import statistics
 from evaluate import load
@@ -50,8 +46,8 @@ for i in range(len(dataset)):
     print("pred: ", d['Generated_Response'])
     print("ref: ", d['response'])
 
-    # BERTScore section
-    results_bert = bertscore.compute(predictions=[d['Generated_Response']], references=[d['response']], model_type="microsoft/deberta-v2-xxlarge-mnli")
+    # BERTScore section bert-base-uncased, microsoft/deberta-v2-xxlarge-mnli
+    results_bert = bertscore.compute(predictions=[d['Generated_Response']], references=[d['response']], model_type="bert-base-uncased")
 
     # BERTSCORE section
     precision_scores = results_bert['precision']
