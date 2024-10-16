@@ -14,7 +14,7 @@ bertscore = load("bertscore")
 # rouge = load("rouge")
 # bleu = load("bleu")
 
-filename = 'dolly_openqa'
+filename = 'gpt_preds_t0.6'
 
 df = pd.read_excel(f'dataset/{filename}.xlsx', index_col=None)
 df = df.fillna('')
