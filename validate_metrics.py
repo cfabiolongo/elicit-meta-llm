@@ -14,8 +14,8 @@ bertscore = load("bertscore")
 # rouge = load("rouge")
 # bleu = load("bleu")
 
-filename = 'squad_preds_metrics_t0.1'
-ground_truth_column = "answer_text"
+filename = 'gpt_preds_metrics_t0.8'
+ground_truth_column = "response"
 
 df = pd.read_excel(f'dataset/{filename}.xlsx', index_col=None)
 df = df.fillna('')
@@ -48,7 +48,7 @@ for i in range(len(dataset)):
     print("ref: ", d[ground_truth_column])
 
     # BERTScore section bert-base-uncased, microsoft/deberta-v2-xxlarge-mnli
-    results_bert = bertscore.compute(predictions=[d['Generated_Response']], references=[d[ground_truth_column]], model_type="bert-base-uncased")
+    results_bert = bertscore.compute(predictions=[d['Generated_Response']], references=[d[ground_truth_column]], model_type="microsoft/deberta-v2-xxlarge-mnli")
 
     # BERTSCORE section
     precision_scores = results_bert['precision']
@@ -73,7 +73,7 @@ for i in range(len(dataset)):
         match = match + 1
         print("---> MATCH <---")
         matches.append("CORRECT")
-    elif rouge_score['f'] > 0.5 and f1_scores[0] > 0.5:
+    elif rouge_score['f'] > 0.5 and f1_scores[0] >= 0.5:
         matches.append("CORRECT")
     elif rouge_score['p'] > 0.6 or rouge_score['r'] > 0.6:
         matches.append("CORRECT")
@@ -103,7 +103,7 @@ print("Media della f1 (BERTScore):", f1_media)
 
 
 # writing excel dataframe with predictions (Generated_Response)
-file_output = f"{filename}_validated"
+file_output = f"{filename}_deberta"
 
 df['Precision'] = flat_bert_precisions
 df['Recall'] = flat_bert_recalls
@@ -122,4 +122,4 @@ print("\n#MATCH:", match)
 df.reset_index(drop=True, inplace=True)
 df.to_excel(f"dataset/{file_output}.xlsx", index=False)
 
-print(f"\nFile {file_output}.xlsx successfully created'.")
+print(f"\nFile {file_output}.xlsx successfully created.")

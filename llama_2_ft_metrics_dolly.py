@@ -6,7 +6,7 @@ import torch
 from peft import AutoPeftModelForCausalLM
 from transformers import AutoTokenizer
 import torch
-from datasets import Dataset
+from datasets import load_dataset
 import statistics
 from evaluate import load
 from rouge import Rouge 
@@ -15,13 +15,12 @@ from rouge import Rouge
 
 # Carica le metriche
 bertscore = load("bertscore")
-rouge = load("rouge")
-bleu = load("bleu")
+# bleu = load("bleu")
 
 # General parameters
-model_name = "llama2-gpt_100ep"
+model_name = "llama-dolly_qa_100ep"
 output_dir = f"/home/fabio/llama/models/finetuned/{model_name}"
-temp = 0.6
+temp = 0.8
 max_new_tokens = 512
 gpu = "cuda"
 
@@ -37,8 +36,13 @@ model = AutoPeftModelForCausalLM.from_pretrained(
 )
 tokenizer = AutoTokenizer.from_pretrained(output_dir)
 
-df = pd.read_excel('dataset/100_gpt_stories.xlsx')
-dataset = Dataset.from_pandas(df)
+# Load dataset from the hub
+dataset = load_dataset("databricks/databricks-dolly-15k", split="train")
+
+# Filtra il dataset
+filtered_dataset = dataset.filter(lambda example: example['category'] == "open_qa" and len(example["response"]) <= 100)
+dataset = filtered_dataset.select(range(100))
+
 print("#dataset items: ", len(dataset))
 
 sub_prompt="Generate a response to the question given in Input."
@@ -85,17 +89,22 @@ for i in range(len(dataset)):
     gen = gen_full.split("#")[0]
     gen = gen.strip()
             
-    print(f"\nPrompt: {d['instruction']}\n")       
+    print(f"\nPrompt: {d['instruction']}\n")
     print(f"Generated instruction:\n{gen}")
+    
+    
     print(f"Ground truth:\n{d['response']}")
 
     preds.append(gen)       
     
     if str(d['response']).lower() == gen.lower():
         match = match + 1
-        print("---> MATCH <---")
-       
-    rouge_score = rouge.get_scores(d['response'], gen)[0]['rouge-l']
+        print("---> MATCH <---")       
+      
+    reference = gen if not len(gen)==0 else "empty"
+    
+    rouge_score = rouge.get_scores(d['response'], reference)[0]['rouge-l']    
+    
     print("\nrouge-l: ", rouge_score)
        
     # Aggiungi i punteggi ROUGE alle liste
@@ -125,7 +134,13 @@ print("Media della recall (BERTScore):", recall_media)
 print("Media della f1 (BERTScore):", f1_media)
 
 # writing excel dataframe with predictions (Generated_Response)
-filename = f"gpt_preds_metrics_t{temp}"
+filename = f"dolly_preds_metrics_t{temp}"
+
+# Create the pandas DataFrame
+df = pd.DataFrame()
+
+df['instruction'] = dataset['instruction']
+df['response'] = dataset['response']
 
 df['Generated_Response'] = preds
 df['Precision'] = precision_scores
