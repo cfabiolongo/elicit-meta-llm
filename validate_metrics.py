@@ -14,7 +14,8 @@ bertscore = load("bertscore")
 # rouge = load("rouge")
 # bleu = load("bleu")
 
-filename = 'gpt_preds_t0.6'
+filename = 'squad_preds_metrics_t0.1'
+ground_truth_column = "answer_text"
 
 df = pd.read_excel(f'dataset/{filename}.xlsx', index_col=None)
 df = df.fillna('')
@@ -44,10 +45,10 @@ for i in range(len(dataset)):
     d = dataset[i]
 
     print("pred: ", d['Generated_Response'])
-    print("ref: ", d['response'])
+    print("ref: ", d[ground_truth_column])
 
     # BERTScore section bert-base-uncased, microsoft/deberta-v2-xxlarge-mnli
-    results_bert = bertscore.compute(predictions=[d['Generated_Response']], references=[d['response']], model_type="bert-base-uncased")
+    results_bert = bertscore.compute(predictions=[d['Generated_Response']], references=[d[ground_truth_column]], model_type="bert-base-uncased")
 
     # BERTSCORE section
     precision_scores = results_bert['precision']
@@ -58,15 +59,17 @@ for i in range(len(dataset)):
     bert_recalls.append(recall_scores)
     bert_f1s.append(f1_scores)
 
+    reference = d['Generated_Response'] if not len(d['Generated_Response']) == 0 else "empty"
+
     # ROUGE section
-    rouge_score = rouge.get_scores(d['response'], d['Generated_Response'])[0]['rouge-l']
+    rouge_score = rouge.get_scores(d[ground_truth_column], reference)[0]['rouge-l']
     print("\nrouge-l: ", rouge_score)
 
     rouge_precisions.append(rouge_score['p'])
     rouge_recalls.append(rouge_score['r'])
     rouge_f1s.append(rouge_score['f'])
 
-    if str(d['response']) == d['Generated_Response']:
+    if str(d[ground_truth_column]) == d['Generated_Response']:
         match = match + 1
         print("---> MATCH <---")
         matches.append("CORRECT")

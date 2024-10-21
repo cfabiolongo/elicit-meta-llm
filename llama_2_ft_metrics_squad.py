@@ -18,9 +18,9 @@ bertscore = load("bertscore")
 bleu = load("bleu")
 
 # General parameters
-model_name = "llama2-squad_100ep"
+model_name = "llama2-squad2_70ep"
 output_dir = f"/home/fabio/llama/models/finetuned/{model_name}"
-temp = 0.1
+temp = 0.6
 max_new_tokens = 512
 gpu = "cuda"
 
@@ -90,11 +90,13 @@ for i in range(len(dataset)):
 
     preds.append(gen)       
     
-    if str(d['response']).lower() == gen.lower():
+    if str(d['answer_text']).lower() == gen.lower():
         match = match + 1
         print("---> MATCH <---")
-       
-    rouge_score = rouge.get_scores(d['answer_text'], gen)[0]['rouge-l']
+      
+    reference = gen if not len(gen)==0 else "empty"
+    rouge_score = rouge.get_scores(d['answer_text'], reference)[0]['rouge-l']
+    
     print("\nrouge-l: ", rouge_score)
        
     # Aggiungi i punteggi ROUGE alle liste
