@@ -75,7 +75,7 @@ for i in range(len(dataset)):
         matches.append("CORRECT")
     elif rouge_score['f'] > 0.5 and f1_scores[0] >= 0.5:
         matches.append("CORRECT")
-    elif rouge_score['p'] > 0.6 or rouge_score['r'] > 0.6:
+    elif rouge_score['p'] >= 0.6 or rouge_score['r'] >= 0.6:
         matches.append("CORRECT")
     elif f1_scores[0] > 0.9:
         matches.append("CORRECT")
