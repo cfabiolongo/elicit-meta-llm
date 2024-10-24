@@ -1,56 +1,40 @@
+import os
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"  # or "0,1" for multiple GPUs
+
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig, TrainingArguments
 import pandas as pd
-from datasets import load_dataset, concatenate_datasets, Dataset
+from datasets import Dataset
 from random import randrange
 
 
 # General parameters
-epoche = 100
+epoche = 70
 lr = 2e-3
-path_model = f"../models/finetuned/llama-metadolly2_qa_super100_{epoche}ep"
-
-####################################### from dataset
-
-# Load dataset from the hub
-dataset = load_dataset("databricks/databricks-dolly-15k", split="train")
-
-# Filtra il dataset
-filtered_dataset = dataset.filter(lambda example: example['category'] == "open_qa" and len(example["response"]) <= 100 and example["context"] == "")
-
-# Reduce dataset to the first 1000 records
-dataset1 = filtered_dataset.select(range(1000))
-
-df1 = dataset1.to_pandas()
-df1 = df1[['instruction', 'response']]
-df1['validation'] = "CORRECT"
+path_model = f"../models/finetuned/llama2-metagpt_{epoche}ep"
 
 ####################################### from past inference
 
-df2 = pd.read_excel('dataset/dolly_openqa_validations_super100.xlsx')
+df = pd.read_excel('dataset/gpt_merged_metrics_deberta.xlsx')
 
-df2['response'] = df2['Generated_Response'].values
-df2 = df2.rename(columns={'Question': 'instruction'})
-df2 = df2[['instruction', 'response', 'validation']]
-
-
-# Concateniamo i due DataFrame
-df_conc = pd.concat([df1, df2])
+df['generated'] = df['Generated_Response'].values
+df = df.rename(columns={'Question': 'instruction'})
+df = df[['instruction', 'generated', 'VALIDATION']]
 
 print("removing duplicate responses.....")
-print(f"dataset size (before): {len(df_conc)}")
+print(f"dataset size (before): {len(df)}")
 
 # Eliminiamo i duplicati basati su "question" e "response"
-df_conc = df_conc.drop_duplicates(subset=['instruction', 'response'], keep='first')
+df_sub = df.drop_duplicates(subset=['instruction', 'generated'], keep='first')
 
-dataset_conc = Dataset.from_pandas(df_conc)
+dataset = Dataset.from_pandas(df_sub)
 
-print(f"dataset size: {len(dataset_conc)}")
-print(dataset_conc[randrange(len(dataset_conc))])
+print(f"dataset size: {len(dataset)}")
+print(dataset[randrange(len(dataset))])
 
 #######################################
 
-sub_prompt="Validate the response given in Input with CORRECT or WRONG, considering the question given in Context."
+sub_prompt = "Validate the response given in Input with CORRECT or WRONG, considering the question given in Context."
 
 def format_instruction(sample):
 	return f"""### Context:
@@ -58,10 +42,10 @@ def format_instruction(sample):
 ### Instruction:
 {sub_prompt}
 ### Input:
-{sample['response']}
+{sample['generated']}
 
 ### Response:
-{sample['validation']}
+{sample['VALIDATION']}
 """
 
 # Hugging Face model id
@@ -127,7 +111,7 @@ max_seq_length = 2048 # max sequence length for model and packing of the dataset
 
 trainer = SFTTrainer(
     model=model,
-    train_dataset=dataset_conc,
+    train_dataset=dataset,
     peft_config=peft_config,
     max_seq_length=max_seq_length,
     tokenizer=tokenizer,

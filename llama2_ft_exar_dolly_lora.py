@@ -3,15 +3,14 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "0"  # or "0,1" for multiple GPUs
 
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig, TrainingArguments
-import pandas as pd
-from datasets import load_dataset, concatenate_datasets, Dataset
+from datasets import load_dataset, Dataset
 from random import randrange
-
+import pandas as pd
 
 # General parameters
-epoche = 70
+epoche = 60
 lr = 2e-3
-path_model = f"../models/finetuned/llama2-metadolly_{epoche}ep"
+path_model = f"../models/finetuned/llama-dollycontext5_qa_{epoche}ep"
 
 ####################################### from dataset
 
@@ -26,45 +25,45 @@ dataset1 = filtered_dataset.select(range(1000))
 
 df1 = dataset1.to_pandas()
 df1 = df1[['instruction', 'response']]
-df1['VALIDATION'] = "CORRECT"
+df1['generated'] = ""
+df1['VALIDATION'] = ""
+
 
 ####################################### from past inference
 
 df2 = pd.read_excel('dataset/dolly_merged_metrics_deberta.xlsx')
 
-df2['generated'] = df2['Generated_Response'].values
+df2['response'] = df2['Generated_Response'].values
 df2 = df2.rename(columns={'Question': 'instruction'})
-df2 = df2[['instruction', 'generated', 'VALIDATION']]
+df2 = df2.rename(columns={'Generated_Response': 'generated'})
+df2 = df2[['instruction', 'response', 'generated', 'VALIDATION']]
 
 # Concateniamo i due DataFrame
 df_conc = pd.concat([df1, df2])
 
-print("removing duplicate responses.....")
-print(f"dataset size (before): {len(df_conc)}")
-
+#print("removing duplicate responses.....")
+#print(f"dataset size (before): {len(df_conc)}")
 # Eliminiamo i duplicati basati su "question" e "response"
-df_conc = df_conc.drop_duplicates(subset=['instruction', 'generated'], keep='first')
+# df_conc = df_conc.drop_duplicates(subset=['question','response'], keep='first')
 
-dataset_conc = Dataset.from_pandas(df_conc)
+# dataset_conc = Dataset.from_pandas(df_conc)
+dataset_val = Dataset.from_pandas(df2)
 
-print(f"dataset size: {len(dataset_conc)}")
-print(dataset_conc[randrange(len(dataset_conc))])
+print(f"dataset size: {len(dataset_val)}")
+print(dataset_val[randrange(len(dataset_val))])
 
-#######################################
+####################################### 
 
-sub_prompt="Validate the response given in Input with CORRECT or WRONG, considering the question given in Context."
+sub_prompt="Generate a Response to the question given in Input. Response must be different from Context."
+
 
 def format_instruction(sample):
-	return f"""### Context:
-{sample['instruction']}
-### Instruction:
-{sub_prompt}
-### Input:
-{sample['generated']}
+    if sample['validation'] == "CORRECT":
+        return f"""### Context: ### Instruction: {sub_prompt} ### Input: {sample['instruction']} ### Response: {sample['response']}"""    
+    else:
+        return f"""### Context: {sample['generated']} ### Instruction: {sub_prompt} ### Input: {sample['instruction']} ### Response: {sample['response']} """
 
-### Response:
-{sample['VALIDATION']}
-"""
+print(format_instruction(dataset_val[randrange(len(dataset_val))]))
 
 # Hugging Face model id
 # model_id = "../models/7B"  # non-gated
@@ -129,7 +128,7 @@ max_seq_length = 2048 # max sequence length for model and packing of the dataset
 
 trainer = SFTTrainer(
     model=model,
-    train_dataset=dataset_conc,
+    train_dataset=dataset_val,
     peft_config=peft_config,
     max_seq_length=max_seq_length,
     tokenizer=tokenizer,
@@ -146,3 +145,10 @@ trainer.save_model(path_model)
 
 print("\nFinetuning complete.")
 print(f"\nPath model: {path_model}\n")
+
+
+
+
+
+
+

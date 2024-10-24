@@ -5,7 +5,7 @@ import torch
 
 
 # General parameters
-model_name = "llama2-metadolly_70ep"
+model_name = "llama2-metagpt_ep70"
 output_dir = f"../models/finetuned/{model_name}"
 temp = 0.6
 max_new_tokens = 512
@@ -23,20 +23,20 @@ model = AutoPeftModelForCausalLM.from_pretrained(
 )
 tokenizer = AutoTokenizer.from_pretrained(output_dir)
 
-df = pd.read_excel('dataset/dolly_merged_metrics_deberta.xlsx')
+df = pd.read_excel('dataset/gpt_merged_metrics_deberta.xlsx')
 
-# df = df.iloc[:100].reset_index(drop=True)
+df = df.iloc[:100].reset_index(drop=True)  
 
-question_column = df['instruction'].tolist()
+question_column = df['Question'].tolist()
 generated_column = df['Generated_Response'].tolist()
 validation_column = df['VALIDATION'].tolist()
 
 # Create datasets
-dataset = [{'instruction': i, 'generated': g, 'VALIDATION': v} for i, g, v in zip(question_column, generated_column, validation_column)]
+dataset = [{'validation': val, 'question': q, 'generated': g} for val, q, g in zip(validation_column, question_column, generated_column)]
 
-# dataset = dataset[:100]
+dataset = dataset[:100]
 
-sub_prompt = "Validate the response given in Input with CORRECT or WRONG, considering the question given in Context."
+sub_prompt="Validate the response given in Input with CORRECT or WRONG, considering the question given in Context."
 
 preds = []
 match = 0
@@ -54,7 +54,7 @@ for i in range(len(dataset)):
     d = dataset[i]   
               
     prompt = f"""### Context:
-    {d['instruction']}
+    {d['question']}
      ### Instruction:
     {sub_prompt}
     ### Input:
@@ -78,9 +78,8 @@ for i in range(len(dataset)):
     gen_full = tokenizer.batch_decode(outputs.detach().cpu().numpy(), skip_special_tokens=True)[0][len(prompt):]
     gen = gen_full.split("#")[0]
     gen = gen.strip()
-
-    print(f"Context: {d['instruction']}")
-    print(f"Prompt: {d['generated']}\n")
+            
+    print(f"\nPrompt: {d['question']}\n")            
     print(f"Generated validation:\n{gen}")
     print(f"Ground truth validation:\n{d['VALIDATION']}")
 
