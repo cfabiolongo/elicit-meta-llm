@@ -10,7 +10,7 @@ import pandas as pd
 # General parameters
 epoche = 60
 lr = 2e-3
-path_model = f"../models/finetuned/llama-dollycontext5_qa_{epoche}ep"
+path_model = f"../models/finetuned/llama2-dollyexar_{epoche}ep"
 
 ####################################### from dataset
 
@@ -26,7 +26,7 @@ dataset1 = filtered_dataset.select(range(1000))
 df1 = dataset1.to_pandas()
 df1 = df1[['instruction', 'response']]
 df1['generated'] = ""
-df1['VALIDATION'] = ""
+df1['validation'] = ""
 
 
 ####################################### from past inference
@@ -36,15 +36,11 @@ df2 = pd.read_excel('dataset/dolly_merged_metrics_deberta.xlsx')
 df2['response'] = df2['Generated_Response'].values
 df2 = df2.rename(columns={'Question': 'instruction'})
 df2 = df2.rename(columns={'Generated_Response': 'generated'})
-df2 = df2[['instruction', 'response', 'generated', 'VALIDATION']]
+df2 = df2.rename(columns={'VALIDATION': 'validation'})
+df2 = df2[['instruction', 'response', 'generated', 'validation']]
 
 # Concateniamo i due DataFrame
 df_conc = pd.concat([df1, df2])
-
-#print("removing duplicate responses.....")
-#print(f"dataset size (before): {len(df_conc)}")
-# Eliminiamo i duplicati basati su "question" e "response"
-# df_conc = df_conc.drop_duplicates(subset=['question','response'], keep='first')
 
 # dataset_conc = Dataset.from_pandas(df_conc)
 dataset_val = Dataset.from_pandas(df2)

@@ -5,7 +5,7 @@ import torch
 
 
 # General parameters
-model_name = "llama2-metagpt_ep70"
+model_name = "llama2-metagpt_70ep"
 output_dir = f"../models/finetuned/{model_name}"
 temp = 0.6
 max_new_tokens = 512
@@ -23,7 +23,7 @@ model = AutoPeftModelForCausalLM.from_pretrained(
 )
 tokenizer = AutoTokenizer.from_pretrained(output_dir)
 
-df = pd.read_excel('dataset/gpt_merged_metrics_deberta.xlsx')
+df = pd.read_excel('dataset/gpt/gpt_merged_metrics_deberta.xlsx')
 
 df = df.iloc[:100].reset_index(drop=True)  
 

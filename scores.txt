@@ -1,0 +1,75 @@
+Model: ../models/finetuned/llama2-metagpt_70ep
+#Records: 142
+Temperature: 0.1 , 0.6, 0.8
+#Match: 74
+
+#Meta-validation scores:
+accuracy: 0.5175
+precision: 0.5071
+recall: 1.0
+f1-score: 0.673
+
+------------------------------------
+
+Model: ../models/finetuned/llama2-metadolly_70ep
+#Records: 180
+Temperature: 0.1, 0.6
+#Match: 79
+
+#Meta-validation scores:
+accuracy: 0.5746
+precision: 0.5163
+recall: 0.9634
+f1-score: 0.6723
+
+Temperature: 0.8
+#Match: 79
+
+#Meta-validation scores:
+accuracy: 0.5801
+precision: 0.5197
+recall: 0.9634
+f1-score: 0.6752
+
+
+Temperature: 1.0
+#Match: 78
+
+#Meta-validation scores:
+accuracy: 0.5691
+precision: 0.5132
+recall: 0.9512
+f1-score: 0.6667
+
+------------------------------------
+
+Model: ../models/finetuned/llama2-metasquad_30ep
+#Records: 1860
+
+Temperature: 0.1
+#Match: 1232
+
+#Meta-validation scores:
+accuracy: 0.7659
+precision: 0.4725
+recall: 0.4576
+f1-score: 0.4649
+
+
+Temperature: 0.6
+#Match: 1212
+
+#Meta-validation scores:
+accuracy: 0.7573
+precision: 0.4532
+recall: 0.4455
+f1-score: 0.4493
+
+
+
+
+
+
+
+
+
